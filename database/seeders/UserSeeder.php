@@ -12,12 +12,15 @@ class UserSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
-        User::create([
-            'name' => 'Super Admin',
-            'email' => 'admin@mail.com',
-            'password' => Hash::make('admin'),
-        ]);
+        // Menghindari duplikasi data dengan firstOrCreate()
+        User::firstOrCreate(
+            ['email' => 'admin@mail.com'], // Syarat pencarian
+            [
+                'name' => 'Super Admin',
+                'password' => bcrypt('password'), // Pastikan password terenkripsi
+            ]
+        );
     }
 }

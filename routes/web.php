@@ -48,4 +48,3 @@ Route::middleware('auth')->group(function () {
         Route::delete('delete/{id}', [TransaksiDetailController::class, 'destroy'])->name('transaksidetail.destroy');
     });
 });
-

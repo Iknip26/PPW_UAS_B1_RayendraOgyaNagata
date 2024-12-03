@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Transaksi; // Pastikan Anda mengimpor model Transaksi
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // Menghitung jumlah transaksi
-        $transaksi_count = Transaksi::count(); // Menampilkan jumlah transaksi yang ada
-
-        // Mengirim data ke view
-        return view('dashboard', compact('transaksi_count')); // Mengirim variabel transaksi_count ke view
+        // Cukup mengembalikan view 'dashboard' tanpa mengirimkan data apa pun
+        return view('dashboard');
     }
 }
