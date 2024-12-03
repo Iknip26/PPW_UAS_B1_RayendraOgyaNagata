@@ -10,16 +10,11 @@ use Illuminate\Support\Facades\Route;
 |----------------------------------------------------------------------
 | Web Routes
 |----------------------------------------------------------------------
-|
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will be
 | assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 // Route untuk LoginController
 Route::controller(LoginController::class)->group(function() {
@@ -28,11 +23,11 @@ Route::controller(LoginController::class)->group(function() {
     Route::post('/logout', 'logout')->name('logout');
 });
 
-// Route untuk Dashboard
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// Route untuk Dashboard (Only accessible for authenticated users)
+Route::middleware('auth')->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-// Route untuk Transaksi
-Route::prefix('/transaksi')->group(function () {
+// Route untuk Transaksi (Only accessible for authenticated users)
+Route::middleware('auth')->prefix('/transaksi')->group(function () {
     Route::get('/', [TransaksiController::class, 'index'])->name('transaksi.index');
     Route::get('create', [TransaksiController::class, 'create'])->name('transaksi.create');
     Route::post('store', [TransaksiController::class, 'store'])->name('transaksi.store');
@@ -41,8 +36,8 @@ Route::prefix('/transaksi')->group(function () {
     Route::delete('delete/{id}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
 });
 
-// Route untuk TransaksiDetail
-Route::prefix('/transaksidetail')->group(function () {
+// Route untuk TransaksiDetail (Only accessible for authenticated users)
+Route::middleware('auth')->prefix('/transaksidetail')->group(function () {
     Route::get('/', [TransaksiDetailController::class, 'index'])->name('transaksidetail.index');
     Route::get('/{id_transaksi}', [TransaksiDetailController::class, 'detail'])->name('transaksidetail.detail');
     Route::get('edit/{id}', [TransaksiDetailController::class, 'edit'])->name('transaksidetail.edit');
