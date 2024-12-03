@@ -42,6 +42,7 @@ class TransaksiDetailSeeder extends Seeder
             $t->total_harga = $total_harga;
             $t->bayar = ceil($total_harga/50000) * 50000;
             $t->kembalian = $t->bayar - $total_harga
+
         }
     }
 }
